@@ -1,0 +1,26 @@
+- Crear bbdd: examen2daw1eval
+
+- findAll movies: (test en controlador)
+    - HttpStatusCode: 200
+    - Movies: id, title
+    - Paginación: defaultPage: 1, defaultSize: 20
+
+- findById movies: (test en persistencia -> dao)
+    - HttpStatusCode: 200
+    - Movie: todo
+    - Actors y Director: id, name
+    - Si no se encuentra -> 404
+
+- Insert Movie: (test en dominio)
+    - HttpStatusCode: 204 (created)
+    - Devolver película creada
+    - Movie: todo + id director + array id actores
+    - Si hay algún error de validación -> 401??
+
+- Delete Movie por id (test en persistencia -> dao)
+    - HttpStatusCode: 201 (no content)
+    - Si no se encuentra la película -> 404
+
+Validaciones:
+    - Crew: Nombre y birthYear no puede ser vacío; deathYear debe ser posterior a birthYear
+    - Movie: year >= 1888. Runtime > 0. Title, year y Director no pueden ser vacíos; Año nacimiento actores y director no puede ser posterior a año película
