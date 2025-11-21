@@ -20,6 +20,7 @@
 		<org.instancio.version>5.5.1</org.instancio.version>
 		<com.fasterxml.jackson.version>2.20.1</com.fasterxml.jackson.version>
 		<org.flywaydb.version>11.17.0</org.flywaydb.version>
+		<com.h2database.version>2.3.232</com.h2database.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -62,6 +63,12 @@
 			<groupId>org.instancio</groupId>
 			<artifactId>instancio-junit</artifactId>
 			<version>${org.instancio.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${com.h2database.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
