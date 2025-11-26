@@ -10,15 +10,14 @@ public class ActorJpaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Column(name="birth_year")
+    @Column(name = "birth_year")
     private Integer birthYear;
-    @Column(name="death_year")
+    @Column(name = "death_year")
     private Integer deathYear;
 
+    public ActorJpaEntity() {
 
-   public ActorJpaEntity(){
-
-   }
+    }
 
     public ActorJpaEntity(Long id, String name, Integer birthYear, Integer deathYear) {
         this.id = id;
@@ -41,5 +40,21 @@ public class ActorJpaEntity {
 
     public Integer getDeathYear() {
         return deathYear;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBirthYear(Integer birthYear) {
+        this.birthYear = birthYear;
+    }
+
+    public void setDeathYear(Integer deathYear) {
+        this.deathYear = deathYear;
     }
 }

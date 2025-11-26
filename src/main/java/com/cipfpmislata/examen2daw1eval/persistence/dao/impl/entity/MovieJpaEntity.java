@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name= "movies")
+@Table(name = "movies")
 public class MovieJpaEntity {
 
     @Id
@@ -27,7 +27,8 @@ public class MovieJpaEntity {
     public MovieJpaEntity() {
     }
 
-    public MovieJpaEntity(Long id, String title, Integer year, String image, Integer runtime, String description, DirectorJpaEntity director, List<ActorJpaEntity> actors) {
+    public MovieJpaEntity(Long id, String title, Integer year, String image, Integer runtime, String description,
+            DirectorJpaEntity director, List<ActorJpaEntity> actors) {
         this.id = id;
         this.title = title;
         this.year = year;
@@ -37,7 +38,6 @@ public class MovieJpaEntity {
         this.director = director;
         setActors(actors);
     }
-
 
     public List<ActorJpaEntity> getActors() {
         return actorMovie.stream().map(ActorMovieJpaEntity::getActor).collect(Collectors.toList());
@@ -81,5 +81,33 @@ public class MovieJpaEntity {
 
     public List<ActorMovieJpaEntity> getActorMovie() {
         return actorMovie;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public void setRuntime(Integer runtime) {
+        this.runtime = runtime;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDirector(DirectorJpaEntity director) {
+        this.director = director;
     }
 }
