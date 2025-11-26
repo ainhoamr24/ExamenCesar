@@ -1,4 +1,7 @@
 package com.cipfpmislata.examen2daw1eval.persistence.dao;
 
-public interface DirectorDao {
+import com.cipfpmislata.examen2daw1eval.persistence.dao.impl.entity.DirectorJpaEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface DirectorDao extends JpaRepository<DirectorJpaEntity, Long> {
 }
