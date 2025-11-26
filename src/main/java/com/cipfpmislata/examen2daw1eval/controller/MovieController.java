@@ -43,18 +43,28 @@ public class MovieController {
         return ResponseEntity.ok(MovieMapper.toDetailResponse(movie));
     }
 
+
     @PostMapping
-    public ResponseEntity<Void> create(@RequestBody MovieRequest request) {
-        movieService.create(MovieMapper.toDomain(request));
-        return ResponseEntity.status(HttpStatus.CREATED).build(); // Assuming 201 as per standard, text said 204 but
-                                                                  // also "detalle de la película". I'll stick to 201
-                                                                  // empty for now as 204 with body is invalid.
-    }
+public ResponseEntity<MovieDetailResponse> create(@RequestBody MovieRequest request) {
+
+    Movie movie = MovieMapper.toDomain(request);
+
+    movieService.create(movie);
+
+    Movie created = movieService.findById(movie.getId());
+
+    MovieDetailResponse response = MovieMapper.toDetailResponse(created);
+
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).body(response);
+}
+
+
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         movieService.delete(id);
-        return ResponseEntity.status(HttpStatus.CREATED).build(); // Exam says 201.
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
