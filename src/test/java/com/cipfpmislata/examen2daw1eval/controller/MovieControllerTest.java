@@ -42,6 +42,8 @@ class MovieControllerTest {
 
         mockMvc.perform(get("/api/movies"))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.length()" ).value(1))
+                .andExpect(jsonPath("$.data[0].id").value(1))
                 .andExpect(jsonPath("$.data[0].title").value("Test Movie"));
     }
 
