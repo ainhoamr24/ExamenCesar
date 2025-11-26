@@ -1,7 +1,5 @@
 package com.cipfpmislata.examen2daw1eval.domain.service.impl;
 
-import com.cipfpmislata.examen2daw1eval.domain.service.MovieService;
-
 import com.cipfpmislata.examen2daw1eval.domain.exception.ResourceNotFoundException;
 import com.cipfpmislata.examen2daw1eval.domain.exception.ValidationException;
 import com.cipfpmislata.examen2daw1eval.domain.model.Crew;
@@ -51,6 +49,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     private void validate(Movie movie) {
+
         if (movie.getTitle() == null || movie.getTitle().isBlank()) {
             throw new ValidationException("Title cannot be empty");
         }
@@ -67,20 +66,39 @@ public class MovieServiceImpl implements MovieService {
             throw new ValidationException("Director cannot be null");
         }
 
-        // Validate Director
         Crew director = crewRepository.findDirectorById(movie.getDirector().getId())
                 .orElseThrow(() -> new ValidationException("Director not found"));
 
+        if (director.getName() == null || director.getName().isBlank()) {
+            throw new ValidationException("Director name cannot be null");
+        }
+        if (director.getBirthYear() == null) {
+            throw new ValidationException("Director birth year cannot be null");
+        }
+        if (director.getDeathYear() != null && director.getDeathYear() <= director.getBirthYear()) {
+            throw new ValidationException("Director death year must be after birth year");
+        }
         if (director.getBirthYear() > movie.getYear()) {
             throw new ValidationException("Director birth year cannot be after movie year");
         }
 
-        // Validate Actors
         if (movie.getActors() != null) {
             for (Crew actorRef : movie.getActors()) {
-                Crew actor = crewRepository.findActorById(actorRef.getId())
-                        .orElseThrow(() -> new ValidationException("Actor not found with id: " + actorRef.getId()));
 
+                Crew actor = crewRepository.findActorById(actorRef.getId())
+                        .orElseThrow(() ->
+                                new ValidationException("Actor not found with id: " + actorRef.getId())
+                        );
+
+                if (actor.getName() == null || actor.getName().isBlank()) {
+                    throw new ValidationException("Actor name cannot be null");
+                }
+                if (actor.getBirthYear() == null) {
+                    throw new ValidationException("Actor birth year cannot be null");
+                }
+                if (actor.getDeathYear() != null && actor.getDeathYear() <= actor.getBirthYear()) {
+                    throw new ValidationException("Actor death year must be after birth year");
+                }
                 if (actor.getBirthYear() > movie.getYear()) {
                     throw new ValidationException("Actor birth year cannot be after movie year");
                 }
