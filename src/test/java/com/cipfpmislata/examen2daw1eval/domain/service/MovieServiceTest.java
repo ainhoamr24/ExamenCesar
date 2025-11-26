@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,6 +40,7 @@ class MovieServiceTest {
         when(crewRepository.findDirectorById(99L)).thenReturn(Optional.empty());
 
         assertThrows(ValidationException.class, () -> movieService.create(movie));
+        verify(movieRepository, never()).save(movie);
     }
 
     @Test
@@ -50,5 +53,6 @@ class MovieServiceTest {
         when(crewRepository.findActorById(99L)).thenReturn(Optional.empty());
 
         assertThrows(ValidationException.class, () -> movieService.create(movie));
+        verify(movieRepository, never()).save(movie);
     }
 }
